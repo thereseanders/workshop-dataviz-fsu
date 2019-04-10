@@ -1,14 +1,3 @@
----
-title: "Day 1"
-author: "Therese Anders"
-date: "4/9/2019"
-output: 
-  html_document: 
-    keep_md: true
----
-
-
-
 ## R Markdown
 
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
