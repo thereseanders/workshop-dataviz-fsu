@@ -1,6 +1,8 @@
 # Software requirements
 You should have both [R](https://www.r-project.org) and [RStudio](https://www.rstudio.com) installed on your machine. 
 
+In this workshop, we will be using `R` together with the integrated development environment (IDE) RStudio. In addition to offering a 'cleaner' programming development than the basic `R` editor, RStudio offers a large number of added functionalities for integrating code into documents, built-in tools and web-development.
+
 # Prerequisites
 There are no formal prerequisites for this workshop. However, I am assuming that participants have a basic understanding of `R` programming, in particular:
 
