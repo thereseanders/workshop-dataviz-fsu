@@ -10,5 +10,18 @@ output:
 
 # Roadmap for this workshop
 
+## Day 1
+
+* Principles of good graphics
+* The grammar of graphics
+* Building a graph in `ggplot2`
+* Primer on data management using `dplyr` and `tidyr`
+
+## Day 2
+
+## Day 3
+
+* Maps in `R`
+
 
 # Principles of good graphics
