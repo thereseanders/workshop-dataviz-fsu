@@ -4,8 +4,8 @@ author: "Therese Anders"
 date: "5/6/2019"
 output:
   html_document:
-    keep_md: yes
-  pdf_document: default
+    keep_md: true
+  pdf_document:
 subtitle: FSU Summer Methods School, Day 1
 ---
 
