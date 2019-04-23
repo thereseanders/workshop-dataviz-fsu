@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  22 APR 2019 21:43
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  22 APR 2019 22:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -805,17 +805,55 @@ LaTeX Font Info:    Try loading font information for T1+lmtt on input line 90.
 (/usr/local/texlive/2014/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for TS1+lmr on input line 101.
+LaTeX Font Info:    Try loading font information for TS1+lmr on input line 126.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 177.
+
+(/usr/local/texlive/2014/texmf-dist/tex/latex/lm/ot1lmr.fd
+File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 177.
+
+(/usr/local/texlive/2014/texmf-dist/tex/latex/lm/omllmm.fd
+File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 177
+.
+(/usr/local/texlive/2014/texmf-dist/tex/latex/lm/omslmsy.fd
+File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 177
+.
+(/usr/local/texlive/2014/texmf-dist/tex/latex/lm/omxlmex.fd
+File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 177.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 177.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 177.
+LaTeX Font Info:    Try loading font information for U+msa on input line 177.
+(/usr/local/texlive/2014/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+) (/usr/local/texlive/2014/texmf-dist/tex/latex/microtype/mt-msa.cfg
+File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 177.
+(/usr/local/texlive/2014/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+) (/usr/local/texlive/2014/texmf-dist/tex/latex/microtype/mt-msb.cfg
+File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
+)
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <14.4> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 129.
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 183.
 
 LaTeX Warning: File `https://d33wubrfki0l68.cloudfront.net/571b056757d68e6df81a
 3e3853f54d3c76ad6efc/32d37/diagrams/data-science.png' not found on input line 1
-41.
+95.
 
 
 ! Package pdftex.def Error: File `https://d33wubrfki0l68.cloudfront.net/571b056
@@ -825,14 +863,14 @@ See the pdftex.def package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.141 ...76ad6efc/32d37/diagrams/data-science.png}
+l.195 ...76ad6efc/32d37/diagrams/data-science.png}
                                                    
 Here is how much of TeX's memory you used:
- 12007 strings out of 493117
- 173950 string characters out of 6135433
- 274141 words of memory out of 5000000
- 15347 multiletter control sequences out of 15000+600000
- 28590 words of font info for 32 fonts, out of 8000000 for 9000
+ 12146 strings out of 493117
+ 177113 string characters out of 6135433
+ 276141 words of memory out of 5000000
+ 15434 multiletter control sequences out of 15000+600000
+ 41094 words of font info for 51 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  31i,3n,35p,241b,299s stack positions out of 5000i,500n,10000p,200000b,80000s
 
