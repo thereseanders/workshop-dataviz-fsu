@@ -536,7 +536,7 @@ ggplot(subset(df),
 ![](day1_dataviz_fsu_files/figure-html/unnamed-chunk-29-1.png)<!-- -->
 
 
-**Practice** Please try to re-create the plot below as closely as possible.
+**Practice 1** Please try to re-create the plot below as closely as possible.
 
 ![](day1_dataviz_fsu_files/figure-html/unnamed-chunk-30-1.png)<!-- -->
 
@@ -585,7 +585,7 @@ ggplot(df,
 
 ![](day1_dataviz_fsu_files/figure-html/unnamed-chunk-33-1.png)<!-- -->
 
-## Scaling the data
+### Scaling the data
 One reason why the plot above is hard to read is rooted in the shape of the distribution of the GDP per capita variable. GDP per capita has a strong right skew. We can correct for this skew and transform the variable to have a more "normal" distribution by taking the natural logarithm. There are multiple ways to do this.
 
 1. Create a new variable [not shown below]
@@ -642,29 +642,149 @@ ggplot(df,
 
 ![](day1_dataviz_fsu_files/figure-html/unnamed-chunk-35-1.png)<!-- -->
 
+### Shape
+We can adjust the default symbol used by `ggplot2` to display the points. The parameter is called [`shape`](http://www.sthda.com/english/wiki/ggplot2-point-shapes).
 
-## Adding trend lines
+```r
+ggplot(df,
+       aes(x = log(gdpPercap),
+           y = lifeExp)) +
+  geom_point(alpha = 0.4,
+             size = 0.5,
+             shape = 4) +
+  labs(title = "Economic wealth and life expectancy",
+       x = "ln GDP per capita",
+       y = "Life expectancy") +
+  theme_light()
+```
+
+![](day1_dataviz_fsu_files/figure-html/unnamed-chunk-36-1.png)<!-- -->
+
+We can also have groups of data displayed using different point shapes. Below, we group by continent. We subset the data to just the year 2007 to de-clutter the plot.
+
+```r
+ggplot(subset(df, year == 2007),
+       aes(x = log(gdpPercap),
+           y = lifeExp,
+           shape = continent)) +
+  geom_point() +
+  labs(title = "Economic wealth and life expectancy",
+       subtitle = "2007",
+       x = "ln GDP per capita",
+       y = "Life expectancy") +
+  theme_light()
+```
+
+![](day1_dataviz_fsu_files/figure-html/unnamed-chunk-37-1.png)<!-- -->
+
+### Adding trend lines
+The plot above illustrates a strong positive relationship between GDP per capita and life expectancy. We can highlight the direction and strength of the relationship by adding a trend line using the [`geom_smooth()`](https://ggplot2.tidyverse.org/reference/geom_smooth.html) aesthetic. 
+
+The default smoothing method is `loess` for less than 1,000 observations and `gam` (Generalized Additive Models) for observations greater or equal to 1,000. `ggplot2` informs us which smoothing method was used via a message. By default, a 95% confidence interval is added to the trend line. It shows that the negative relationship at higher values of GDP per capita has a much lower precision than the positive relationship we observe for the majority of the observations.
+
+```r
+ggplot(df,
+       aes(x = log(gdpPercap),
+           y = lifeExp)) +
+  geom_point(alpha = 0.4,
+             size = 0.5) +
+  labs(title = "Economic wealth and life expectancy",
+       x = "ln GDP per capita",
+       y = "Life expectancy") +
+  theme_light() +
+  geom_smooth()
+```
+
+```
+## `geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'
+```
+
+![](day1_dataviz_fsu_files/figure-html/unnamed-chunk-38-1.png)<!-- -->
+
+Alternatively, we can add a linear regression trend line to the data.
+
+```r
+ggplot(df,
+       aes(x = log(gdpPercap),
+           y = lifeExp)) +
+  geom_point(alpha = 0.4,
+             size = 0.5) +
+  labs(title = "Economic wealth and life expectancy",
+       x = "ln GDP per capita",
+       y = "Life expectancy") +
+  theme_light() +
+  geom_smooth(method = "lm")
+```
+
+![](day1_dataviz_fsu_files/figure-html/unnamed-chunk-39-1.png)<!-- -->
+
+Finally, we can display separate trendlines for groups of data. For example, suppose we wanted to know how the relationship between GDP per capita and life expectancy varies by continent. We can pass the grouping variable to the `color` (and/or `linetype`) parameter within the `aes()` function. Below, I further reduce the opacity of the points to avoid overplotting. Note that the color grouping is passed to both the `geom_point()` and the `geom_smooth()` aesthetic.
+
+```r
+ggplot(df,
+       aes(x = log(gdpPercap),
+           y = lifeExp,
+           color = continent)) +
+  geom_point(alpha = 0.2,
+             size = 1) +
+  labs(title = "Economic wealth and life expectancy",
+       x = "ln GDP per capita",
+       y = "Life expectancy") +
+  theme_light() +
+  geom_smooth(method = "lm")
+```
+
+![](day1_dataviz_fsu_files/figure-html/unnamed-chunk-40-1.png)<!-- -->
+
+## Line plots
+Line plots are particularly useful for time series data. Below, we will graph the GDP per capita development of China from 1952 to 2007. We select the data for China by using the `subset()` function on the original data frame.
+
+```r
+ggplot(subset(df, country == "China"),
+       aes(x = year,
+           y = gdpPercap)) +
+  geom_line()
+```
+
+![](day1_dataviz_fsu_files/figure-html/unnamed-chunk-41-1.png)<!-- -->
+
+We can add points to the line to highlight which observations are available in the underlying data.
+
+```r
+ggplot(subset(df, country == "China"),
+       aes(x = year,
+           y = gdpPercap)) +
+  geom_line() +
+  geom_point()
+```
+
+![](day1_dataviz_fsu_files/figure-html/unnamed-chunk-42-1.png)<!-- -->
+
+**Practice 2** Create a plot to compare the GDP per capita development of the BRICS countries (Brazil, Russia, India, China, South Africa). Unfortunately, Russia (or the Soviet Union) is not part of the `gapminder` data, so we cannot display it in the plot. Please create a publication-ready graph that can be printed using grayscale. 
+
+![](day1_dataviz_fsu_files/figure-html/message-F-1.png)<!-- -->
 
 
+![](day1_dataviz_fsu_files/figure-html/unnamed-chunk-43-1.png)<!-- -->
 
-## Spaghetti plots
-Talk about scaling data versus axes
-
+### Spaghetti plots
+In the plot below, I use a log transformation on GDP per capita within the `scale_color_gradient()` function to display GDP per capita values on their original scale but map the color of the lines to the natural log of GDP per capita.
 
 ```r
 ggplot(subset(df, continent != "Oceania"),
        aes(x = year,
            y = lifeExp,
            group = country,
-           color = log(gdpPercap))) +
+           color = gdpPercap)) +
   geom_line(alpha = 1,
             size = 0.1) +
   theme_light() +
   theme(panel.background = element_rect(fill = "black"),
         panel.grid = element_line(size = 0.1)) +
   scale_color_gradient(low = "#f7ff00",
-                        high = "#00f7ff",
-                        name = "ln GDP per capita") +
+                      high = "#00f7ff",
+                      name = "GDP per capita",
+                       trans = "log") +
   labs(x = "Year",
        y = "Life expectancy",
        title = "Global life expectancy") +
@@ -672,8 +792,9 @@ ggplot(subset(df, continent != "Oceania"),
         strip.background = element_rect(fill = "black"),
         strip.text = element_text(color = "white"),
         legend.key.width = unit(1.5, "cm")) +
-  facet_wrap(~continent, nrow = 1)
+  facet_wrap(~continent, nrow = 1) +
+  scale_x_continuous(breaks = seq(1950, 2010, 25))
 ```
 
-![](day1_dataviz_fsu_files/figure-html/unnamed-chunk-36-1.png)<!-- -->
+![](day1_dataviz_fsu_files/figure-html/unnamed-chunk-44-1.png)<!-- -->
 
