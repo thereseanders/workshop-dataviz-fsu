@@ -3,9 +3,11 @@ title: "Day 1: Data Visualization in `R`"
 author: "Therese Anders"
 date: "5/6/2019"
 output:
-  pdf_document:
   html_document:
     keep_md: true
+  pdf_document:
+    number_sections: yes
+    toc: yes
 subtitle: FSU Summer Methods School
 ---
 
@@ -658,8 +660,6 @@ ggplot(subset(df, country %in% c("Brazil", "Russia", "China", "India", "South Af
 
 ```
 
-### Stacked line charts
-
 
 ### Spaghetti plots
 Spaghetti plots are line plots with many lines displayed in a plot. Typically, the lines are very thin and/or have a high level of transparency to show trends in the data. Below, I am graphing the evolution of life expectancy for all countries in the data set. We allow each country to have its own line by using the `group()` parameter inside `aes()`.
@@ -738,4 +738,5 @@ ggplot(df,
         legend.key.width = unit(1.5, "cm")) +
   scale_x_continuous(breaks = seq(1950, 2010, 25))
 ```
+
 

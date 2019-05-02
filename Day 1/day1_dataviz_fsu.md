@@ -6,6 +6,8 @@ output:
   html_document:
     keep_md: true
   pdf_document:
+    number_sections: yes
+    toc: yes
 subtitle: FSU Summer Methods School
 ---
 
@@ -762,39 +764,97 @@ ggplot(subset(df, country == "China"),
 
 **Practice 2** Create a plot to compare the GDP per capita development of the BRICS countries (Brazil, Russia, India, China, South Africa). Unfortunately, Russia (or the Soviet Union) is not part of the `gapminder` data, so we cannot display it in the plot. Please create a publication-ready graph that can be printed using grayscale. 
 
-![](day1_dataviz_fsu_files/figure-html/message-F-1.png)<!-- -->
-
-
 ![](day1_dataviz_fsu_files/figure-html/unnamed-chunk-43-1.png)<!-- -->
 
+
+![](day1_dataviz_fsu_files/figure-html/unnamed-chunk-44-1.png)<!-- -->
+
+
 ### Spaghetti plots
+Spaghetti plots are line plots with many lines displayed in a plot. Typically, the lines are very thin and/or have a high level of transparency to show trends in the data. Below, I am graphing the evolution of life expectancy for all countries in the data set. We allow each country to have its own line by using the `group()` parameter inside `aes()`.
+
+
+```r
+brics <- c("Brazil", "Russia", "China", "India", "South Africa")
+ggplot(df,
+       aes(x = year,
+           y = lifeExp,
+           group = country)) +
+  geom_line(alpha = 0.2, 
+            size = 0.1) +
+  labs(title = "Life expectancy over time",
+       x = "Year",
+       y = "Life expectancy") +
+  theme_light() +
+  geom_line(data = subset(df, country %in% "South Africa"),
+            color = "red")
+```
+
+![](day1_dataviz_fsu_files/figure-html/unnamed-chunk-45-1.png)<!-- -->
+
+We could display the temporal trend for select countries using color.
+
+
+```r
+ggplot(subset(df, !(country %in% brics)),
+       aes(x = year,
+           y = lifeExp,
+           group = country)) +
+  geom_line(alpha = 0.2, 
+            size = 0.1) +
+  labs(title = "Life expectancy over time",
+       x = "Year",
+       y = "Life expectancy") +
+  theme_light() +
+  geom_line(data = subset(df, country %in% brics),
+            aes(color = country),
+            size = 0.5) +
+  scale_color_brewer(name = "",
+                     palette = "RdYlBu")
+```
+
+![](day1_dataviz_fsu_files/figure-html/unnamed-chunk-46-1.png)<!-- -->
+
 In the plot below, I use a log transformation on GDP per capita within the `scale_color_gradient()` function to display GDP per capita values on their original scale but map the color of the lines to the natural log of GDP per capita.
 
 ```r
-ggplot(subset(df, continent != "Oceania"),
+ggplot(df,
        aes(x = year,
            y = lifeExp,
            group = country,
            color = gdpPercap)) +
+  
+  # Setting up spaghetti plot
   geom_line(alpha = 1,
             size = 0.1) +
+  
+  # Each continent in a separate panel
+  facet_wrap(~continent, nrow = 1) +
+  
+  # Choosing defalt theme
   theme_light() +
+  
+  # Adjusting default theme
   theme(panel.background = element_rect(fill = "black"),
-        panel.grid = element_line(size = 0.1)) +
+        panel.grid = element_line(size = 0.1),
+        strip.background = element_rect(fill = "black"),
+        strip.text = element_text(color = "white")) +
+  
+  # Making the colors pop
   scale_color_gradient(low = "#f7ff00",
                       high = "#00f7ff",
                       name = "GDP per capita",
                        trans = "log") +
+  
+  # Additional appearance adjustments
   labs(x = "Year",
        y = "Life expectancy",
        title = "Global life expectancy") +
   theme(legend.position = "bottom",
-        strip.background = element_rect(fill = "black"),
-        strip.text = element_text(color = "white"),
         legend.key.width = unit(1.5, "cm")) +
-  facet_wrap(~continent, nrow = 1) +
   scale_x_continuous(breaks = seq(1950, 2010, 25))
 ```
 
-![](day1_dataviz_fsu_files/figure-html/unnamed-chunk-44-1.png)<!-- -->
+![](day1_dataviz_fsu_files/figure-html/unnamed-chunk-47-1.png)<!-- -->
+
 
