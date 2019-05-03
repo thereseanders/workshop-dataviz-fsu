@@ -556,40 +556,12 @@ ggplot(flows,
                     values = c("Continental" = "blue",
                                "Southwest" = "darkorange",
                                "Other" = "grey")) +
-  theme_light()
+  theme_light() +
+  labs(title = "Flights from Houston 2011",
+       x = "",
+       y = "Number of flights") +
+  theme(axis.text.x = element_blank())
 ```
-
-
-
-# Primer on `tidyr`
-Another important task in data management is data re-shaping. Often, data does not come in the format that we need for data merging, data visualization, statistical analysis, or vectorized programming.
-
-The `tidyr` package offers two main functions for data re-shaping:
-
-* `gather()`: Shaping data from wide to long.
-* `spread()`: Shaping data from long to wide.
-
-## Wide versus long data
-For **wide** data formats, each unit's responses are in a single row. For example:
-
-| Country | Area | Pop1990 | Pop1991 |
-|---------|------|---------|---------|
-| A       | 300  | 56      | 58      |
-| B       | 150  | 40      | 45      |
-
-For **long** data formats, each row denotes the observation of a unit at a given point in time. For example:
-
-| Country | Year | Area | Pop |
-|---------|------|------|-----|
-| A       | 1990 | 300  | 56  |
-| A       | 1991 | 300  | 58  |
-| B       | 1990 | 150  | 40  |
-| B       | 1991 | 150  | 45  |
-
-## `gather()`
-We use the `gather()` function to reshape data from wide to long. In general, the syntax of the data is as follows:
-
-`new_df <- gather(old_df, key, value, columns to gather)`
 
 
 
