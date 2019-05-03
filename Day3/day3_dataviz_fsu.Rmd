@@ -1,0 +1,14 @@
+---
+title: "Day 2: Data Visualization in `R`"
+author: "Therese Anders"
+date: "5/7/2019"
+output:
+  html_document:
+    keep_md: true
+  pdf_document:
+subtitle: FSU Summer Methods School
+---
+
+Data sets: hate crime in US for maps
+Or murders in US: murder_2015_final
+police_killings has lon and lat
