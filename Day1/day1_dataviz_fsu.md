@@ -8,6 +8,7 @@ output:
   pdf_document:
     number_sections: yes
     toc: yes
+urlcolor: blue
 subtitle: FSU Summer Methods School
 ---
 

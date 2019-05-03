@@ -12,7 +12,7 @@ subtitle: FSU Summer Methods School
 urlcolor: blue
 ---
 
-# Why data wrangling
+# Why data wrangling in a visualization workshop?
 This workshop focuses on data visualization. However, in practice, data visualization is only the last part in a long stream of data gathering, cleaning, wrangling, and analysis. 
 
 ![https://d33wubrfki0l68.cloudfront.net/571b056757d68e6df81a3e3853f54d3c76ad6efc/32d37/diagrams/data-science.png](data-science.png)
@@ -39,6 +39,7 @@ RStudio offers a great [Data wrangling cheat sheet](https://www.rstudio.com/wp-c
 * `arrange()`: Reorders rows.
 * `mutate()`: Add columns to existing data.
 * `summarise()`: Summarizing data set.
+* joins: Combine two data frames together
 
 First, lets dowload the package and call it using the `library()` function.
 
@@ -100,6 +101,7 @@ data <-  raw %>%
   dplyr::select(Month,
                 DayOfWeek,
                 DepTime,
+                ArrTime,
                 ArrDelay,
                 TailNum,
                 Airline = UniqueCarrier, #Renaming the variable
@@ -109,9 +111,9 @@ names(data)
 ```
 
 ```
-##  [1] "Month"     "DayOfWeek" "DepTime"   "ArrDelay"  "TailNum"  
-##  [6] "Airline"   "Time"      "Origin"    "Dest"      "Distance" 
-## [11] "TaxiIn"    "TaxiOut"   "Cancelled"
+##  [1] "Month"     "DayOfWeek" "DepTime"   "ArrTime"   "ArrDelay" 
+##  [6] "TailNum"   "Airline"   "Time"      "Origin"    "Dest"     
+## [11] "Distance"  "TaxiIn"    "TaxiOut"   "Cancelled"
 ```
 
 Suppose, we didn't really want to select the `Cancelled` variable. We can use `select()` to drop variables.
@@ -132,10 +134,10 @@ There are a number of key operations when manipulating observations (rows).
 * `x > y`
 * `x %in% c(a,b,c)` is `TRUE` if `x` is in the vector `c(a, b, c)`.
 
-Suppose, we wanted to filter all the flights that have their destination in the greater Los Angeles area, specifically Los Angeles (LAX), Ontario (ONT), John Wayne (SNA), Bob Hope (BUR), and Long Beach (LGB) airports.
+Suppose, we wanted to filter all the flights that have their destination in the greater Los Angeles area, specifically Los Angeles (LAX), Ontario (ONT), and John Wayne (SNA) airports. Note that based on the `hflights` dataset, there are no flights from the Houston area to Bob Hope (BUR) or Long Beach (LGB) airports.
 
 ```r
-airports <- c("LAX", "ONT", "SNA", "BUR", "LGB")
+airports <- c("LAX", "ONT", "SNA")
 
 la_flights <- data %>%
   filter(Dest %in% airports)
@@ -148,20 +150,20 @@ head(la_flights)
 ```
 
 ```
-##   Month DayOfWeek DepTime ArrDelay TailNum Airline Time Origin Dest
-## 1     1         1    1916        2  N76522      CO  227    IAH  LAX
-## 2     1         1     747        5  N67134      CO  229    IAH  LAX
-## 3     1         1    1433       14  N73283      CO  236    IAH  LAX
-## 4     1         1    1750        6  N34282      CO  211    IAH  ONT
-## 5     1         1     917       15  N76515      CO  243    IAH  SNA
-## 6     1         1    1550        8  N76502      CO  226    IAH  LAX
-##   Distance TaxiIn TaxiOut
-## 1     1379      8      20
-## 2     1379     11      17
-## 3     1379     10      27
-## 4     1334      5      17
-## 5     1347      6      35
-## 6     1379     13      15
+##   Month DayOfWeek DepTime ArrTime ArrDelay TailNum Airline Time Origin
+## 1     1         1    1916    2103        2  N76522      CO  227    IAH
+## 2     1         1     747     936        5  N67134      CO  229    IAH
+## 3     1         1    1433    1629       14  N73283      CO  236    IAH
+## 4     1         1    1750    1921        6  N34282      CO  211    IAH
+## 5     1         1     917    1120       15  N76515      CO  243    IAH
+## 6     1         1    1550    1736        8  N76502      CO  226    IAH
+##   Dest Distance TaxiIn TaxiOut
+## 1  LAX     1379      8      20
+## 2  LAX     1379     11      17
+## 3  LAX     1379     10      27
+## 4  ONT     1334      5      17
+## 5  SNA     1347      6      35
+## 6  LAX     1379     13      15
 ```
 
 ```r
@@ -171,20 +173,20 @@ head(la_flights_alt)
 ```
 
 ```
-##   Month DayOfWeek DepTime ArrDelay TailNum Airline Time Origin Dest
-## 1     1         1    1916        2  N76522      CO  227    IAH  LAX
-## 2     1         1    1433       14  N73283      CO  236    IAH  LAX
-## 3     1         1    2107        7  N73270      CO  220    IAH  LAX
-## 4     1         1     920        5  N77867      CO  236    IAH  LAX
-## 5     1         1    1325       32  N26210      CO  253    IAH  LAX
-## 6     1         1    1749        6  N73860      CO  229    IAH  LAX
-##   Distance TaxiIn TaxiOut
-## 1     1379      8      20
-## 2     1379     10      27
-## 3     1379      7      12
-## 4     1379      8      33
-## 5     1379     11      30
-## 6     1379     15      14
+##   Month DayOfWeek DepTime ArrTime ArrDelay TailNum Airline Time Origin
+## 1     1         1    1916    2103        2  N76522      CO  227    IAH
+## 2     1         1    1433    1629       14  N73283      CO  236    IAH
+## 3     1         1    2107    2247        7  N73270      CO  220    IAH
+## 4     1         1     920    1116        5  N77867      CO  236    IAH
+## 5     1         1    1325    1538       32  N26210      CO  253    IAH
+## 6     1         1    1749    1938        6  N73860      CO  229    IAH
+##   Dest Distance TaxiIn TaxiOut
+## 1  LAX     1379      8      20
+## 2  LAX     1379     10      27
+## 3  LAX     1379      7      12
+## 4  LAX     1379      8      33
+## 5  LAX     1379     11      30
+## 6  LAX     1379     15      14
 ```
 
 Why? We are basically returning all values for which the following is `TRUE` (using the correct output of the `la_flights` data frame:
@@ -319,7 +321,7 @@ ggplot(la_flights_delay_airline,
 
 ![](day2_dataviz_fsu_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
 
-To de-clutter the graph, I below, I use the `geom_linerange()` aesthetic rather than `geom_errorbar()`. I can use the `position = dodge` command within the `geom_point()` and `geom_linerange()` aesthetic to display the values for each airline next to each other, instead on top of each other. Note that I could have used `position = dodge` with `geom_errorbar()` as well.
+To de-clutter the graph, below, I use the `geom_linerange()` aesthetic rather than `geom_errorbar()`. I can use the `position = dodge` command within the `geom_point()` and `geom_linerange()` aesthetic to display the values for each airline next to each other, instead on top of each other. Note that I could have used `position = dodge` with `geom_errorbar()` as well; the functionality is essentially the same.
 
 ```r
 ggplot(la_flights_delay_airline,
@@ -342,37 +344,492 @@ ggplot(la_flights_delay_airline,
 
 ![](day2_dataviz_fsu_files/figure-html/unnamed-chunk-13-1.png)<!-- -->
 
-
-Now, suppose, I was flying from Houston to Los Angeles, and wanted to know which airline operates the most flights for this route before booking. Here, we will be using the operator `n()` to tell `dplyr` to count all the observations for the groups specified in `group_by()`. After computing the result, I would like to arrange the output from highest number of flights, to lowest number. Thus, if I want to have the highest selection of flights, I should book with Continental Airlines (at least back in 2011).
+### Dataviz: Barplots
+Suppose we wanted to know which airline operates the most flights out of either Houston airport. Here, we will be using the operator `n()` to tell `dplyr` to count all the observations for the groups specified in `group_by()`. After computing the result, I would like to arrange the output from highest number of flights to lowest number.
 
 ```r
-carriers <- la_flights %>%
-  group_by(AirlineName) %>%
+carriers <- data %>%
+  group_by(Airline) %>%
   summarise(NoFlights = n()) %>%
-  arrange(desc(NoFlights)) #desc() for descending order. 
-carriers
+  arrange(desc(NoFlights))
+```
+
+We can display the result graphically using the `geom_bar()` aesthetic. Note the following details on the usage of `geom_bar()` from the `ggplot2` package documentation below.
+
+*"The heights of the bars commonly represent one of two things: either a count of cases in each group, or the values in a column of the data frame. By default, geom_bar uses stat="bin". This makes the height of each bar equal to the number of cases in each group, and it is incompatible with mapping values to the y aesthetic. If you want the heights of the bars to represent values in the data, use stat="identity" and map a value to the y aesthetic."* (https://www.rdocumentation.org/packages/ggplot2/versions/1.0.1/topics/geom_bar)
+
+Thus, the creating the count variables using `group_by()` and `summarise()` is not absolutely necessary. However, for more complicated groupings of data, I highly recommend creating a separate data frame and "hard code" groupings of interest before graphing.
+
+```r
+# Using default geom_bar(stat = "bin#) on the original data
+ggplot(data,
+       aes(x = Airline)) +
+  geom_bar()
+```
+
+![](day2_dataviz_fsu_files/figure-html/unnamed-chunk-15-1.png)<!-- -->
+
+```r
+# Using geom_bar(stat = "identity") on grouped data
+ggplot(carriers,
+       aes(x = Airline,
+           y = NoFlights)) +
+  geom_bar(stat = "identity")
+```
+
+![](day2_dataviz_fsu_files/figure-html/unnamed-chunk-15-2.png)<!-- -->
+
+
+Lets make the flight more legible. We want the airline codes on the y-axis and the bars sorted from most to least flights.
+
+```r
+# Using default geom_bar(stat = "bin#) on the original data
+ggplot(carriers,
+       aes(x = reorder(Airline, NoFlights),
+           y = NoFlights)) +
+  geom_bar(stat = "identity") +
+  coord_flip()
+```
+
+![](day2_dataviz_fsu_files/figure-html/unnamed-chunk-16-1.png)<!-- -->
+
+We can also create a stacked barplot, distinguishing between the two Houston airports.
+
+```r
+table(data$Airline)
 ```
 
 ```
-## # A tibble: 3 x 2
-##   AirlineName          NoFlights
-##   <chr>                    <int>
-## 1 Continental Airlines      6471
-## 2 Southwest Airlines        1396
-## 3 American Eagle             810
+## 
+##    AA    AS    B6    CO    DL    EV    F9    FL    MQ    OO    UA    US 
+##  3244   365   695 70032  2641  2204   838  2139  4648 16061  2072  4082 
+##    WN    XE    YV 
+## 45343 73053    79
 ```
 
-## Introduction to `tidyr`
+```r
+carriers2 <- data %>%
+  group_by(Airline, Origin) %>%
+  summarise(NoFlights = n()) %>%
+  arrange(desc(NoFlights))
+
+# Using default geom_bar(stat = "bin#) on the original data
+ggplot(carriers2,
+       aes(x = reorder(Airline, NoFlights),
+           y = NoFlights,
+           fill = Origin)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  scale_fill_manual(values = c("black", "grey")) +
+  theme_light()
+```
+
+![](day2_dataviz_fsu_files/figure-html/unnamed-chunk-17-1.png)<!-- -->
+
+## Joins
+`dplyr` has powerful tools to merge data frames together. Because we want to focus on data visualization here, I will not go over all possible joints in depth. Please see the [Data Wrangling Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf) and the [dplyr documentation](https://dplyr.tidyverse.org/reference/join.html) for more details.
+
+Suppose, we have two data frames: `x` and `y`. The basic syntax for data merging with `dplyr` is the following:
+
+`output <- join(A, B, by = "variable")`
+
+We will focus on the following three join functions:
+
+* `left_join()`: Join only those rows from `y` that appear in `x`, retaining all data in `x`. Here, `x` is the "master."
+* `right_join()`: Join only those rows from `x` that appear in `y`, retaining all data in `y`. Here, `y` is the "master."
+* `full_join()`: Join data from `x` and `y` upon retaining all rows and values. This is the maximum join possible. Neither `x` nor `y` is the "master."
 
 
-# Displaying regression results
-san_andreas
+For demonstration purposes, lets create a new data frame that contains the name of the city for each of the Greater Los Angeles Area airports.
+
+```r
+loc_airport <- data.frame(code = c("LAX", "ONT", "SNA", "BUR"),
+                          location = c("Los Angeles", "Ontario", "Santa Ana", "Burbank"))
+loc_airport
+```
+
+```
+##   code    location
+## 1  LAX Los Angeles
+## 2  ONT     Ontario
+## 3  SNA   Santa Ana
+## 4  BUR     Burbank
+```
+
+
+First, we treat the `la_flights` data frame as the master and join it with the data frame containing the airport locations using `left_join()`. If the variable names in both data frames were the same, `dplyr` would automatically join the correct columns. Here, we manually match the column names.
+
+```r
+la_flights_new <- left_join(la_flights, loc_airport, 
+                            by = c("Dest" = "code"))
+```
+
+```
+## Warning: Column `Dest`/`code` joining character vector and factor, coercing
+## into character vector
+```
+
+```r
+table(la_flights_new$Dest)
+```
+
+```
+## 
+##  LAX  ONT  SNA 
+## 6064  952 1661
+```
+
+Second, lets create a similar result using `right_join()`. Again, `la_flights` is the master data frame.
+
+```r
+la_flights_new2 <- right_join(loc_airport, la_flights, 
+                              by = c("code" = "Dest"))
+```
+
+```
+## Warning: Column `code`/`Dest` joining factor and character vector, coercing
+## into character vector
+```
+
+```r
+table(la_flights_new2$code)
+```
+
+```
+## 
+##  LAX  ONT  SNA 
+## 6064  952 1661
+```
+
+Finally, for demonstration, we create a third data frame using `full_join()`. Because all observations are retained, this join creates one observation with empty values for the Burbank value in `loc_airport`. For most applications, this would be an undesirable outcome. However, below, we use the fact that all possible values are retained to set up the data for visualization.
+
+```r
+la_flights_new3 <- full_join(la_flights, loc_airport, 
+                            by = c("Dest" = "code"))
+```
+
+```
+## Warning: Column `Dest`/`code` joining character vector and factor, coercing
+## into character vector
+```
+
+```r
+table(la_flights_new3$Dest)
+```
+
+```
+## 
+##  BUR  LAX  ONT  SNA 
+##    1 6064  952 1661
+```
+
+```r
+la_flights_new3[la_flights_new3$Dest == "BUR",]
+```
+
+```
+##      Month DayOfWeek DepTime ArrTime ArrDelay TailNum Airline Time Origin
+## 8678    NA        NA      NA      NA       NA    <NA>    <NA>   NA   <NA>
+##      Dest Distance TaxiIn TaxiOut TaxiTotal TaxiProp AirlineName location
+## 8678  BUR       NA     NA      NA        NA       NA        <NA>  Burbank
+```
+
+
+
+# Heatmaps
+For this example, we will go back to our original `data` tibble that contains the complete set of flight data for the Houston airports in 2011. Suppose we wanted to know, what are the busiest times at each of the two Houston airports, George Bush Intercontinental/Houston Airport (IAH) and William P. Hobby Airport (HOU). We create a new summary data frame that counts the number of departures per hour and day for each of the airports. We display these data using heatmaps.
+
+To do so, we need to create a new variable that codes the hour of departure, using information from the `DepTime` variable. There are more advanced workflows available using the `stringr` and/or `lubridate` packages (both are part of the `tidyverse`). However, because we want to focus on data visualization, I simply divide the departure time by 100 and then use the `floor()` function to extract the hour of departure.
+
+```r
+departures <- data %>%
+  
+  mutate(hour = floor(DepTime/100))  %>%
+  
+  group_by(Origin,
+           Dest,
+           DayOfWeek,
+           hour) %>%
+  summarise(count = n())
+
+ggplot(departures,
+       aes(x = hour,
+           y = DayOfWeek,
+           fill = count)) +
+  geom_tile()
+```
+
+![](day2_dataviz_fsu_files/figure-html/unnamed-chunk-22-1.png)<!-- -->
+
+There are a number of ways to improve the plot. We will go through them step by step. Their is a weird observation in hour 24 that should not be there. The hour has to be either 23 or 0. Lets re-code this observation to an hour value of 0 using the `replace()` function from `dplyr`.
+
+```r
+test <- data %>%
+  filter(!is.na(DepTime)) %>%
+  mutate(hour = floor(DepTime/100)) %>%
+  filter(hour >= 24)
+test
+```
+
+```
+##   Month DayOfWeek DepTime ArrTime ArrDelay TailNum Airline Time Origin
+## 1     5         2    2400     144      310  N14940      XE  104    IAH
+##   Dest Distance TaxiIn TaxiOut hour
+## 1  DFW      224      8      17   24
+```
+
+```r
+# Recoding
+departures <- data %>%
+  filter(!is.na(DepTime)) %>%
+  mutate(hour = floor(DepTime/100))  %>%
+  mutate(hour = replace(hour, hour >= 24, 0)) %>%
+  group_by(Origin,
+           DayOfWeek,
+           hour) %>%
+  summarise(count = n())
+
+ggplot(departures,
+       aes(x = hour,
+           y = DayOfWeek,
+           fill = count)) +
+  geom_tile() 
+```
+
+![](day2_dataviz_fsu_files/figure-html/unnamed-chunk-23-1.png)<!-- -->
+
+There are a number of possible observations that do not have value in the data frame, in particular in the early morning ours. For this application, we can assume that that these observations are not actually missing, but that there are no flights during these time slots. 
+
+Therefore, we create a data frame with all possible combinations of the variable values for day of the week and hour using `expand.grid()`, and use the `full_join()` function to create a new data frame. Similar to the application above, this procedure will result in missing values. We again use the `replace` function to re-code these missing values to zero.
+
+```r
+# Empty data frame
+combo <- expand.grid(DayOfWeek = seq(1, 7),
+                     hour = seq(0,23),
+                     Origin = c("IAH", "HOU"))
+
+# Merging
+departures <- data %>%
+  filter(!is.na(DepTime)) %>%
+  mutate(hour = floor(DepTime/100))  %>%
+  mutate(hour = replace(hour, hour >= 24, 0)) %>%
+  group_by(Origin,
+           DayOfWeek,
+           hour) %>%
+  summarise(count = n()) %>%
+  
+  # joining empty data frame
+  full_join(combo) %>%
+  
+  # replacing missing values with zero
+  mutate(count = replace(count, is.na(count), 0))
+
+# visualizing it
+ggplot(departures,
+       aes(x = hour,
+           y = DayOfWeek,
+           fill = count)) +
+  geom_tile() 
+```
+
+![](day2_dataviz_fsu_files/figure-html/unnamed-chunk-24-1.png)<!-- -->
+
+Now, lets change the appearance of the graph. Below, we use color scales from the `viridis` package.
+
+```r
+# install.packages("viridis")
+library(viridis)
+
+
+# visualizing it
+ggplot(departures,
+       aes(x = hour,
+           y = DayOfWeek,
+           fill = count)) +
+  geom_tile() +
+  scale_fill_viridis(name = "Flights") +
+  scale_x_continuous(breaks = seq(0,23)) +
+  scale_y_continuous(breaks = seq(1,7),
+                     labels = c("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat")) +
+  theme_light() +
+  theme(panel.grid.minor = element_blank(),
+        legend.position = "bottom",
+        legend.key.width = unit(1.5, "cm")) +
+  coord_flip() +
+  labs(x = "Hour",
+       y = "",
+       title = "Departures from Houston airports")
+```
+
+![](day2_dataviz_fsu_files/figure-html/unnamed-chunk-25-1.png)<!-- -->
+
+# Alluvial diagrams
+What are the flows between the two Houston airports and the ten most common destinations? We can visualize the combination of origin airport (IAH versus HOU) and the destination airport using alluvial diagrams. Below, we use the `ggalluvial` package, which contains the `geom_alluvium()` aesthetic. 
+
+First, we create a frequency table for all observed combinations of origin and destination airport for the ten most common destinations using `group_by()` and `slice()`.
+
+```r
+dest_top10 <- data %>%
+  group_by(Dest) %>%
+  summarise(count = n()) %>%
+  arrange(desc(count)) %>%
+  slice(1:10)
+
+flows <- data %>%
+  filter(Dest %in% dest_top10$Dest) %>%
+  group_by(Origin, 
+           Dest,
+           Airline) %>%
+  summarise(count = n())
+
+# install.packages("ggalluvial")
+library(ggalluvial)
+ggplot(flows,
+       aes(y = count,
+           axis1 = Origin, 
+           axis2 = Dest)) +
+  geom_alluvium()
+```
+
+![](day2_dataviz_fsu_files/figure-html/unnamed-chunk-26-1.png)<!-- -->
+
+We can use fill to make the graph more interesting.
+
+```r
+ggplot(flows,
+       aes(y = count,
+           axis1 = Origin, 
+           axis2 = Dest)) +
+  geom_alluvium(aes(fill = Origin))
+```
+
+![](day2_dataviz_fsu_files/figure-html/unnamed-chunk-27-1.png)<!-- -->
+
+We can add labels to illustrate the destination airport. We also add the `geom_stratum()` aesthetic to clarify the grouping.
+
+```r
+ggplot(flows,
+       aes(y = count,
+           axis1 = Origin, 
+           axis2 = Dest)) +
+  geom_alluvium(aes(fill = Origin)) +
+  geom_stratum(width = 1/12, fill = "black", color = "grey") +
+  geom_label(stat = "stratum", label.strata = TRUE)
+```
+
+![](day2_dataviz_fsu_files/figure-html/unnamed-chunk-28-1.png)<!-- -->
+
+The plot above looks nice, but the distinction by fill is not necessarily needed. We could instead display an additional variable, for example the airline. 
 
 
 ```r
-#install.packages("fivethirtyeight")
-library(fivethirtyeight)
-
-avenge <- avengers
+ggplot(flows,
+       aes(y = count,
+           axis1 = Origin, 
+           axis2 = Dest)) +
+  geom_alluvium(aes(fill = Airline)) +
+  geom_stratum(width = 1/12, fill = "black", color = "grey") +
+  geom_label(stat = "stratum", label.strata = TRUE)
 ```
+
+![](day2_dataviz_fsu_files/figure-html/unnamed-chunk-29-1.png)<!-- -->
+
+The plot above is hardly legible because there are too many airlines displayed. Lets only label the most common ones. First, we create a quick barplot to check who are the most common carriers on the top ten routes. Then, create a new variable coding only the most common, i.e. Continental (CO), Southwest (WN), and Other using `case_when()`.
+
+```r
+ggplot(flows,
+       aes(x = Airline,
+           y = count)) +
+  geom_bar(stat = "identity")
+```
+
+![](day2_dataviz_fsu_files/figure-html/unnamed-chunk-30-1.png)<!-- -->
+
+```r
+# Creating new indicator
+flows <- flows %>%
+  mutate(Airline_reduced = case_when(
+    Airline == "CO" ~ "Continental",
+    Airline == "WN" ~ "Southwest",
+    T ~ "Other"
+  ) %>% factor(levels = c('Continental', 'Southwest', 'Other')))
+table(flows$Airline_reduced)
+```
+
+```
+## 
+## Continental   Southwest       Other 
+##           9           7          30
+```
+
+```r
+# Re-plotting alluvial diagram
+ggplot(flows,
+       aes(y = count,
+           axis1 = Origin, 
+           axis2 = Dest)) +
+  geom_alluvium(aes(fill = Airline_reduced)) +
+  geom_stratum(width = 1/12, fill = "black", color = "grey") +
+  geom_label(stat = "stratum", label.strata = TRUE) +
+  scale_fill_manual(name = "Airline",
+                    values = c("Continental" = "blue",
+                               "Southwest" = "darkorange",
+                               "Other" = "grey")) +
+  theme_light()
+```
+
+![](day2_dataviz_fsu_files/figure-html/unnamed-chunk-30-2.png)<!-- -->
+
+Now, we can re-plot the alluvial diagram.
+
+```r
+ggplot(flows,
+       aes(y = count,
+           axis1 = Origin, 
+           axis2 = Dest)) +
+  geom_alluvium(aes(fill = Airline_reduced)) +
+  geom_stratum(width = 1/12, fill = "black", color = "grey") +
+  geom_label(stat = "stratum", label.strata = TRUE) +
+  scale_fill_manual(name = "Airline",
+                    values = c("Continental" = "blue",
+                               "Southwest" = "darkorange",
+                               "Other" = "grey")) +
+  theme_light()
+```
+
+![](day2_dataviz_fsu_files/figure-html/unnamed-chunk-31-1.png)<!-- -->
+
+
+
+# Primer on `tidyr`
+Another important task in data management is data re-shaping. Often, data does not come in the format that we need for data merging, data visualization, statistical analysis, or vectorized programming.
+
+The `tidyr` package offers two main functions for data re-shaping:
+
+* `gather()`: Shaping data from wide to long.
+* `spread()`: Shaping data from long to wide.
+
+## Wide versus long data
+For **wide** data formats, each unit's responses are in a single row. For example:
+
+| Country | Area | Pop1990 | Pop1991 |
+|---------|------|---------|---------|
+| A       | 300  | 56      | 58      |
+| B       | 150  | 40      | 45      |
+
+For **long** data formats, each row denotes the observation of a unit at a given point in time. For example:
+
+| Country | Year | Area | Pop |
+|---------|------|------|-----|
+| A       | 1990 | 300  | 56  |
+| A       | 1991 | 300  | 58  |
+| B       | 1990 | 150  | 40  |
+| B       | 1991 | 150  | 45  |
+
+## `gather()`
+We use the `gather()` function to reshape data from wide to long. In general, the syntax of the data is as follows:
+
+`new_df <- gather(old_df, key, value, columns to gather)`
+
+
 
