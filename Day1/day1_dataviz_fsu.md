@@ -1,16 +1,9 @@
----
-title: "Day 1: Data Visualization in `R`"
-author: "Therese Anders"
-date: "5/6/2019"
-output:
-  html_document:
-    keep_md: true
-  pdf_document:
-    number_sections: yes
-    toc: yes
-urlcolor: blue
-subtitle: FSU Summer Methods School
----
+# Day 1: Data Visualization in `R`
+FSU Summer Methods School
+
+Therese Anders
+
+5/6/2019
 
 # Getting an overview of the data
 In this first part of the workshop, we will go over basic principles of `ggplot2`. We will work with data from the `gapminder` package. First, install `gapminder` and get an overview over the data. The dataset contains information on life expectancy, GDP per capita, and population by country from 1952 to 2007 in increments of 5 years. Lets use the help function to get an overview of the data.
