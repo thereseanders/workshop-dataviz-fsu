@@ -1,4 +1,4 @@
-# Data Visualization in `R`
+# Day 1: Data Visualization in `R`
 
 **FSU Summer Methods School**
 
