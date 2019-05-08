@@ -2,9 +2,9 @@
 
 **FSU Summer Methods School**
 
-Therese Anders
+*Therese Anders*
 
-5/7/2019
+*5/7/2019*
 
 
 # Why data wrangling in a visualization workshop?
