@@ -1,16 +1,11 @@
----
-title: "Day 3: Data Visualization in `R`"
-author: "Therese Anders"
-date: "5/8/2019"
-output:
-  html_document:
-    keep_md: true
-  pdf_document:
-    number_sections: yes
-    toc: yes
-subtitle: FSU Summer Methods School
-urlcolor: blue
----
+# Day 3: Data Visualization in `R`
+
+**FSU Summer Methods School**
+
+*Therese Anders*
+
+*5/8/2019*
+
 
 # Visualizing regression results
 Today, we will be working with the `politicalInformation` dataset from the `pscl` package.
