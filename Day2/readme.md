@@ -1,16 +1,10 @@
----
-title: "Day 2: Data Visualization in `R`"
-author: "Therese Anders"
-date: "5/7/2019"
-output:
-  html_document:
-    keep_md: true
-  pdf_document:
-    number_sections: yes
-    toc: yes
-subtitle: FSU Summer Methods School
-urlcolor: blue
----
+# Day 2: Data Visualization in `R`
+
+**FSU Summer Methods School**
+
+*Therese Anders*
+
+*5/7/2019*
 
 # Why data wrangling in a visualization workshop?
 This workshop focuses on data visualization. However, in practice, data visualization is only the last part in a long stream of data gathering, cleaning, wrangling, and analysis. 
