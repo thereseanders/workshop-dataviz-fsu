@@ -1,6 +1,4 @@
-# Overview
-
-## [Day 1](https://github.com/thereseanders/workshop-dataviz-fsu/tree/master/Day1)
+# [Day 1](https://github.com/thereseanders/workshop-dataviz-fsu/tree/master/Day1)
 - [Intro to `ggplot2`](https://github.com/thereseanders/workshop-dataviz-fsu/tree/master/Day1#ggplot2-package)
 - [Visualizing distributions](https://github.com/thereseanders/workshop-dataviz-fsu/tree/master/Day1#showing-data-distributions)
 - [Changing the appearance of plots](https://github.com/thereseanders/workshop-dataviz-fsu/tree/master/Day1#controlling-the-appearance-of-graphs)
@@ -9,7 +7,7 @@
 - [Scatter plots](https://github.com/thereseanders/workshop-dataviz-fsu/tree/master/Day1#scatter-plots)
 - [Line plots](https://github.com/thereseanders/workshop-dataviz-fsu/tree/master/Day1#line-plots)
 
-## [Day 2](https://github.com/thereseanders/workshop-dataviz-fsu/tree/master/Day2)
+# [Day 2](https://github.com/thereseanders/workshop-dataviz-fsu/tree/master/Day2)
 - [Introduction to `dplyr`](https://github.com/thereseanders/workshop-dataviz-fsu/tree/master/Day2#introduction-to-dplyr)
 - [Heatmaps](https://github.com/thereseanders/workshop-dataviz-fsu/tree/master/Day2#heatmaps)
 - [Alluvial diagrams](https://github.com/thereseanders/workshop-dataviz-fsu/tree/master/Day2#alluvial-diagrams)
@@ -17,7 +15,7 @@
 - [Bar plots](https://github.com/thereseanders/workshop-dataviz-fsu/tree/master/Day2#dataviz-barplots)
 - [Advanced bar plots and `lubridate`](https://github.com/thereseanders/workshop-dataviz-fsu/tree/master/Day2#advanced-bar-plots-and--lubridate)
 
-## [Day 3](https://github.com/thereseanders/workshop-dataviz-fsu/tree/master/Day3)
+# [Day 3](https://github.com/thereseanders/workshop-dataviz-fsu/tree/master/Day3)
 - [Coefficient plots](https://github.com/thereseanders/workshop-dataviz-fsu/tree/master/Day3#coefficient-plot)
 - [Predictive probabilities](https://github.com/thereseanders/workshop-dataviz-fsu/tree/master/Day3#predictive-probabilities-plot)
 - [Maps using `geom_polygon()`](https://github.com/thereseanders/workshop-dataviz-fsu/tree/master/Day3#using-geom_polygon)
