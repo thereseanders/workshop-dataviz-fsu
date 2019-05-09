@@ -1,3 +1,24 @@
+# Overview
+
+## [Day 1](https://github.com/thereseanders/workshop-dataviz-fsu/tree/master/Day1)
+- Intro to [`ggplot2`](https://github.com/thereseanders/workshop-dataviz-fsu/tree/master/Day1#ggplot2-package)
+- [Visualizing distributions](https://github.com/thereseanders/workshop-dataviz-fsu/tree/master/Day1#showing-data-distributions)
+- [Changing the appearance of plots](https://github.com/thereseanders/workshop-dataviz-fsu/tree/master/Day1#controlling-the-appearance-of-graphs)
+- [Graphing distributions across groups](https://github.com/thereseanders/workshop-dataviz-fsu/tree/master/Day1#graphing-distributions-across-groups)
+- [Boxplots and violin plots](https://github.com/thereseanders/workshop-dataviz-fsu/tree/master/Day1#boxplots)
+- [Scatter plots](https://github.com/thereseanders/workshop-dataviz-fsu/tree/master/Day1#scatter-plots)
+- [Line plots](https://github.com/thereseanders/workshop-dataviz-fsu/tree/master/Day1#line-plots)
+
+## [Day 2](https://github.com/thereseanders/workshop-dataviz-fsu/tree/master/Day2)
+- [Introduction to `dplyr`](https://github.com/thereseanders/workshop-dataviz-fsu/tree/master/Day2#introduction-to-dplyr)
+- [Heatmaps](https://github.com/thereseanders/workshop-dataviz-fsu/tree/master/Day2#heatmaps)
+- [Alluvial diagrams](https://github.com/thereseanders/workshop-dataviz-fsu/tree/master/Day2#alluvial-diagrams)
+- [Primer on `tidyr`](https://github.com/thereseanders/workshop-dataviz-fsu/tree/master/Day2#primer-on-tidyr)
+- [Bar plots](https://github.com/thereseanders/workshop-dataviz-fsu/tree/master/Day2#dataviz-barplots)
+- [Advanced bar plots and `lubridate`](https://github.com/thereseanders/workshop-dataviz-fsu/tree/master/Day2#advanced-bar-plots-and--lubridate)
+
+## [Day 3]()
+
 # Software requirements
 You should have both [R](https://www.r-project.org) and [RStudio](https://www.rstudio.com) installed on your machine. 
 
